@@ -1,0 +1,54 @@
+plugins {
+    id "java"
+    id "application"
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    vertxVersion = "4.5.1"
+}
+
+configurations {
+    flywayMigration
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+	annotationProcessor 'org.projectlombok:lombok:1.18.30'
+	
+	testCompileOnly 'org.projectlombok:lombok:1.18.30'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+    
+    testImplementation "org.junit.jupiter:junit-jupiter:5.9.3"
+
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+
+    implementation platform("io.vertx:vertx-stack-depchain:$vertxVersion")
+    implementation "io.vertx:vertx-core"
+    implementation "io.vertx:vertx-web"
+    implementation "io.vertx:vertx-web-openapi"
+    implementation "io.vertx:vertx-web-validation"
+    implementation "io.vertx:vertx-pg-client:4.5.1"
+
+    implementation "com.google.guava:guava:32.1.1-jre"
+    implementation "com.couchbase.client:java-client:3.5.1"
+    implementation "org.slf4j:slf4j-api:2.0.9"
+    implementation "org.slf4j:slf4j-simple:2.0.9"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+application {
+    mainClass = "db.test.App"
+}
+
+test {
+    useJUnitPlatform()
+}
